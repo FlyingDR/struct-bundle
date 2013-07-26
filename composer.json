@@ -1,5 +1,6 @@
 {
     "name": "flying/struct-bundle",
+    "type": "symfony-bundle",
     "description": "Symfony2 bundle to use structures",
     "license": "MIT",
     "authors": [
@@ -9,6 +10,13 @@
         }
     ],
     "require": {
-        "flying/struct": "0.1.*"
-    }
+        "flying/struct": "~0.1",
+        "symfony/framework-bundle": "~2.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "Flying\\Bundle\\StructBundle": ""
+        }
+    },
+    "target-dir": "Flying/Bundle/StructBundle"
 }

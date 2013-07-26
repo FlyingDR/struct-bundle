@@ -1,0 +1,14 @@
+{
+    "name": "flying/struct-bundle",
+    "description": "Symfony2 bundle to use structures",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Grimalovsky",
+            "email": "alexander.grimalovsky@gmail.com"
+        }
+    ],
+    "require": {
+        "flying/struct": "0.1.*"
+    }
+}

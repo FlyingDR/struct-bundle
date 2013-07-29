@@ -2,7 +2,7 @@ parameters:
     flying_struct.metadata_manager.class: Flying\Struct\Metadata\MetadataManager
     flying_struct.metadata_parser.class: Flying\Struct\Metadata\AnnotationParser
     flying_struct.cache.array.class: Doctrine\Common\Cache\ArrayCache
-    flying_struct.storage.class: Flying\Struct\Storage\Storage
+    flying_struct.storage.class: Flying\Bundle\StructBundle\Storage\Storage
     flying_struct.storage_backend.array.class: Flying\Struct\Storage\ArrayBackend
     flying_struct.storage_backend.session.class: Flying\Bundle\StructBundle\Storage\SessionBackend
     flying_struct.configuration.class: Flying\Struct\Configuration
@@ -22,6 +22,7 @@ services:
 
     flying_struct.storage:
         class: %flying_struct.storage.class%
+        arguments: [@event_dispatcher]
 
     flying_struct.storage_backend.array:
         class: %flying_struct.storage_backend.array.class%

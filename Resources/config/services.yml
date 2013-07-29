@@ -1,0 +1,43 @@
+parameters:
+    flying_struct.metadata_manager.class: Flying\Struct\Metadata\MetadataManager
+    flying_struct.metadata_parser.class: Flying\Struct\Metadata\AnnotationParser
+    flying_struct.cache.array.class: Doctrine\Common\Cache\ArrayCache
+    flying_struct.storage.class: Flying\Struct\Storage\Storage
+    flying_struct.storage_backend.array.class: Flying\Struct\Storage\ArrayBackend
+    flying_struct.storage_backend.session.class: Flying\Bundle\StructBundle\Storage\SessionBackend
+    flying_struct.configuration.class: Flying\Struct\Configuration
+
+services:
+    flying_struct.metadata_manager:
+        class: %flying_struct.metadata_manager.class%
+
+    flying_struct.metadata_parser:
+        class: %flying_struct.metadata_parser.class%
+
+    flying_struct.cache.array:
+        class: %flying_struct.cache.array.class%
+
+    flying_struct.cache:
+        alias: flying_struct.cache.array
+
+    flying_struct.storage:
+        class: %flying_struct.storage.class%
+
+    flying_struct.storage_backend.array:
+        class: %flying_struct.storage_backend.array.class%
+
+    flying_struct.storage_backend.session:
+        class: %flying_struct.storage_backend.session.class%
+        arguments: [@session]
+
+    flying_struct.storage_backend:
+        alias: flying_struct.storage_backend.array
+
+    flying_struct.configuration:
+        class: %flying_struct.configuration.class%
+        calls:
+          - [setMetadataManager, [@flying_struct.metadata_manager]]
+          - [setMetadataParser, [@flying_struct.metadata_parser]]
+          - [setCache, [@flying_struct.cache]]
+          - [setStorage, [@flying_struct.storage]]
+          - [setStorageBackend, [@flying_struct.storage_backend]]

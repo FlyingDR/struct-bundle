@@ -10,13 +10,18 @@
         }
     ],
     "require": {
-        "flying/struct": "~0.1",
-        "symfony/framework-bundle": "~2.2"
+        "flying/struct": "~0.1"
     },
     "autoload": {
         "psr-0": {
             "Flying\\Bundle\\StructBundle": ""
         }
     },
-    "target-dir": "Flying/Bundle/StructBundle"
+    "target-dir": "Flying/Bundle/StructBundle",
+    "require-dev": {
+        "symfony/http-kernel": "~2.2",
+        "symfony/dependency-injection": "~2.2",
+        "symfony/yaml": "~2.2",
+        "symfony/config": "~2.2"
+    }
 }

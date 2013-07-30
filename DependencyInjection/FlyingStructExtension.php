@@ -2,9 +2,6 @@
 
 namespace Flying\Bundle\StructBundle\DependencyInjection;
 
-use Flying\Struct\Configuration as StructConfiguration;
-use Flying\Struct\Configuration\NamespacesMap;
-use Flying\Struct\ConfigurationManager;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -22,33 +19,10 @@ class FlyingStructExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $config = $this->processConfiguration(new Configuration(), $configs);
+        $container->setParameter('flying_struct.nsmap', $config['nsmap']);
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-
-        $config = $this->processConfiguration(new Configuration(), $configs);
-        /** @var $configuration StructConfiguration */
-        $configuration = $container->get('flying_struct.configuration');
-        $this->registerNsMap($configuration->getAnnotationNamespacesMap(), $config['nsmap']['annotation']);
-        $this->registerNsMap($configuration->getPropertyNamespacesMap(), $config['nsmap']['property']);
-        $this->registerNsMap($configuration->getStructNamespacesMap(), $config['nsmap']['struct']);
-        ConfigurationManager::setConfiguration($configuration);
-    }
-
-    /**
-     * Register given namespaces into given namespaces map
-     *
-     * @param NamespacesMap $nsMap
-     * @param array $namespaces
-     * @return void
-     */
-    protected function registerNsMap(NamespacesMap $nsMap, array $namespaces)
-    {
-        foreach ($namespaces as $alias => $ns) {
-            if (!is_string($alias)) {
-                $alias = strtolower(str_replace('\\', '_', $ns));
-            }
-            $nsMap->add($alias, $ns);
-        }
     }
 
 }

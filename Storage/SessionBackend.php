@@ -41,7 +41,6 @@ class SessionBackend implements BackendInterface
         if (strlen($namespace)) {
             $this->_namespace = $namespace;
         }
-        $this->_session->setId('mg0ot6e35st3mk020fa7ef8u31');
         $bag = new AttributeBag($this->_namespace);
         $bag->setName($this->_namespace);
         $this->_session->registerBag($bag);

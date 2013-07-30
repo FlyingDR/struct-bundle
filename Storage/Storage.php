@@ -3,25 +3,23 @@
 namespace Flying\Bundle\StructBundle\Storage;
 
 use Flying\Struct\Storage\Storage as StructStorage;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Structures storage integrated with Symfony 2
  */
-class Storage extends StructStorage
+class Storage extends StructStorage implements EventSubscriberInterface
 {
 
     /**
-     * Class constructor
-     *
-     * @param EventDispatcher $dispatcher
-     * @return Storage
+     * {@inheritdoc}
      */
-    public function __construct(EventDispatcher $dispatcher)
+    public static function getSubscribedEvents()
     {
-        // Register storage flushing method for kernel termination event
-        // to make sure that all changes are saved
-        $dispatcher->addListener('kernel.terminate', array($this, 'flush'));
+        return array(
+            KernelEvents::TERMINATE   => 'flush',
+        );
     }
 
 }

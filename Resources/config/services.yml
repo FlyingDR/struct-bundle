@@ -22,7 +22,8 @@ services:
 
     flying_struct.storage:
         class: %flying_struct.storage.class%
-        arguments: [@event_dispatcher]
+        tags:
+            - { name: kernel.event_subscriber }
 
     flying_struct.storage_backend.array:
         class: %flying_struct.storage_backend.array.class%

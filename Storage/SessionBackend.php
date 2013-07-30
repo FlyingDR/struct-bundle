@@ -38,9 +38,15 @@ class SessionBackend implements BackendInterface
     public function __construct(SessionInterface $session, $namespace = null)
     {
         $this->_session = $session;
-        $this->_namespace = $namespace;
-        $this->_storage = new AttributeBag($this->_namespace);
-        $this->_session->registerBag($this->_storage);
+        if (strlen($namespace)) {
+            $this->_namespace = $namespace;
+        }
+        $this->_session->setId('mg0ot6e35st3mk020fa7ef8u31');
+        $bag = new AttributeBag($this->_namespace);
+        $bag->setName($this->_namespace);
+        $this->_session->registerBag($bag);
+        // Bag is get back from session to allow its initialization
+        $this->_storage = $this->_session->getBag($this->_namespace);
     }
 
     /**

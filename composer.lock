@@ -225,25 +225,25 @@
         },
         {
             "name": "flying/struct",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FlyingDR/struct.git",
-                "reference": "0.1.0"
+                "reference": "0.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FlyingDR/struct/zipball/0.1.0",
-                "reference": "0.1.0",
+                "url": "https://api.github.com/repos/FlyingDR/struct/zipball/0.1.1",
+                "reference": "0.1.1",
                 "shasum": ""
             },
             "require": {
-                "doctrine/annotations": "1.1.*",
-                "doctrine/cache": "1.0.*",
-                "flying/config": "1.1.*"
+                "doctrine/annotations": "~1.0",
+                "doctrine/cache": "~1.0",
+                "flying/config": "~1.1"
             },
             "require-dev": {
-                "mockery/mockery": "0.8.*"
+                "mockery/mockery": "~0.8"
             },
             "type": "library",
             "autoload": {
@@ -263,7 +263,7 @@
                 }
             ],
             "description": "Implementation of generic structures",
-            "time": "2013-07-24 15:53:46"
+            "time": "2013-07-30 16:13:51"
         }
     ],
     "packages-dev": [

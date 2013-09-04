@@ -6,6 +6,10 @@ parameters:
     flying_struct.storage_backend.array.class: Flying\Struct\Storage\ArrayBackend
     flying_struct.storage_backend.session.class: Flying\Bundle\StructBundle\Storage\SessionBackend
     flying_struct.configuration.class: Flying\Struct\Configuration
+    flying_struct.nsmap:
+        annotation: ~
+        property: ~
+        struct: ~
 
 services:
     flying_struct.metadata_manager:

@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "flying/struct": "dev-master"
+        "flying/struct": "dev-master@dev"
     },
     "autoload": {
         "psr-0": {

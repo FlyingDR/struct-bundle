@@ -19,19 +19,11 @@ class FlyingStructExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $config = $this->processConfiguration(new Configuration(), $configs);
+        $container->setParameter('flying_struct.configuration', $config);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-        $config = $this->processConfiguration(new Configuration(), $configs);
-        $nsMap = $container->getParameter('flying_struct.nsmap');
-        foreach ($nsMap as $type => $map) {
-            if ((array_key_exists($type, $config['nsmap'])) &&
-                (is_array($config['nsmap'][$type])) &&
-                (sizeof($config['nsmap'][$type]))
-            ) {
-                $nsMap[$type] = $map;
-            }
-        }
-        $container->setParameter('flying_struct.nsmap', $nsMap);
     }
 
 }

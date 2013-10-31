@@ -23,5 +23,8 @@
         "symfony/dependency-injection": "~2.2",
         "symfony/yaml": "~2.2",
         "symfony/config": "~2.2"
+    },
+    "suggest": {
+        "ocramius/proxy-manager": "Allows lazy instantiation of structures configuration in Symfony 2.3+"
     }
 }

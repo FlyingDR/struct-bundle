@@ -4,6 +4,7 @@ namespace Flying\Bundle\StructBundle\Storage;
 
 use Flying\Struct\Storage\BackendInterface;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
@@ -14,38 +15,39 @@ class SessionBackend implements BackendInterface
 {
     /**
      * Session to use for storing information
+     *
      * @var SessionInterface
      */
-    protected $_session;
+    protected $session;
     /**
      * Namespace to use for storing information in session
+     *
      * @var string
      */
-    protected $_namespace = 'flying_struct_storage';
-    /**
-     * Information storage
-     * @var AttributeBag
-     */
-    protected $_storage;
+    protected $namespace = 'flying_struct';
 
     /**
      * Class constructor
      *
-     * @param SessionInterface $session     Session to use for storing information
-     * @param string $namespace             OPTIONAL Namespace to use for storing information in session
+     * @param SessionInterface $session Session to use for storing information
+     * @param AttributeBag $bag         Session's attribute bag (getting it from container because there is no way to get it from session itself)
+     * @param string $namespace         OPTIONAL Namespace to use for storing information in session
      * @return SessionBackend
      */
-    public function __construct(SessionInterface $session, $namespace = null)
+    public function __construct(SessionInterface $session, AttributeBag $bag = null, $namespace = null)
     {
-        $this->_session = $session;
-        if (strlen($namespace)) {
-            $this->_namespace = $namespace;
+        $this->session = $session;
+        if ($bag instanceof NamespacedAttributeBag) {
+            // Namespace separation character from namespaced attribute bag, 
+            // hardcoded here because it can't be obtained from service itself 
+            $nsChar = '/';
+            if (strlen($namespace)) {
+                $this->namespace = rtrim($namespace, $nsChar);
+            }
+            $this->namespace .= $nsChar;
+        } else {
+            $this->namespace = '';
         }
-        $bag = new AttributeBag($this->_namespace);
-        $bag->setName($this->_namespace);
-        $this->_session->registerBag($bag);
-        // Bag is get back from session to allow its initialization
-        $this->_storage = $this->_session->getBag($this->_namespace);
     }
 
     /**
@@ -53,7 +55,7 @@ class SessionBackend implements BackendInterface
      */
     public function load($key)
     {
-        return $this->_storage->get($key);
+        return $this->session->get($this->namespace . $key);
     }
 
     /**
@@ -61,7 +63,7 @@ class SessionBackend implements BackendInterface
      */
     public function save($key, $contents)
     {
-        $this->_storage->set($key, $contents);
+        $this->session->set($this->namespace . $key, $contents);
     }
 
     /**
@@ -69,7 +71,7 @@ class SessionBackend implements BackendInterface
      */
     public function has($key)
     {
-        return $this->_storage->has($key);
+        return $this->session->has($this->namespace . $key);
     }
 
     /**
@@ -77,7 +79,7 @@ class SessionBackend implements BackendInterface
      */
     public function remove($key)
     {
-        $this->_storage->remove($key);
+        $this->session->remove($this->namespace . $key);
     }
 
     /**
@@ -85,7 +87,6 @@ class SessionBackend implements BackendInterface
      */
     public function clear()
     {
-        $this->_storage->clear();
+        $this->session->clear();
     }
-
 }

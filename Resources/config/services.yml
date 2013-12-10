@@ -23,7 +23,7 @@ services:
 
     flying_struct.storage_backend.session:
         class: %flying_struct.storage_backend.session.class%
-        arguments: [@session]
+        arguments: [@session, @session.attribute_bag]
 
     flying_struct.configuration:
         class: %flying_struct.configuration.class%

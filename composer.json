@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "flying/struct": "~0.2"
+        "flying/struct": "0.2.*"
     },
     "autoload": {
         "psr-0": {

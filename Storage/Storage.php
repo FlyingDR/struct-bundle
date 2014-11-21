@@ -4,6 +4,8 @@ namespace Flying\Bundle\StructBundle\Storage;
 
 use Flying\Struct\Storage\Storage as StructStorage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -11,6 +13,16 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class Storage extends StructStorage implements EventSubscriberInterface
 {
+    /**
+     * @param FilterResponseEvent $event
+     */
+    public function onKernelResponse(FilterResponseEvent $event)
+    {
+        if ($event->getRequestType() !== HttpKernelInterface::MASTER_REQUEST) {
+            return;
+        }
+        $this->flush();
+    }
 
     /**
      * {@inheritdoc}
@@ -18,8 +30,7 @@ class Storage extends StructStorage implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            KernelEvents::TERMINATE   => 'flush',
+            KernelEvents::RESPONSE => array('onKernelResponse', -500),
         );
     }
-
 }

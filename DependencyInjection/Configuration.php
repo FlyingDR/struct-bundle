@@ -18,6 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $tb = new TreeBuilder();
+        // @formatter:off
         /** @noinspection PhpUndefinedMethodInspection */
         $tb
             ->root('flying_struct')
@@ -57,6 +58,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+        // @formatter:on
 
         return $tb;
     }

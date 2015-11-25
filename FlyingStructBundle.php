@@ -28,6 +28,7 @@ class FlyingStructBundle extends Bundle
         // Structures configuration should be stored into ConfigurationManager
         // at the very beginning of application launch process
         // because structures themselves have no idea about Symfony container
+        /** @var Configuration $configuration */
         $configuration = $this->container->get('flying_struct.configuration');
         ConfigurationManager::setConfiguration($configuration);
     }

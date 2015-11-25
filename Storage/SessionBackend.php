@@ -38,10 +38,10 @@ class SessionBackend implements BackendInterface
     {
         $this->session = $session;
         if ($bag instanceof NamespacedAttributeBag) {
-            // Namespace separation character from namespaced attribute bag, 
-            // hardcoded here because it can't be obtained from service itself 
+            // Namespace separation character from namespaced attribute bag,
+            // hardcoded here because it can't be obtained from service itself
             $nsChar = '/';
-            if (strlen($namespace)) {
+            if ($namespace !== '') {
                 $this->namespace = rtrim($namespace, $nsChar);
             }
             $this->namespace .= $nsChar;

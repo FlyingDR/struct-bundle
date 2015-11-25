@@ -18,7 +18,7 @@ class ConfigurationSetupPass implements CompilerPassInterface
      *
      * @var array
      */
-    protected $paramsList = array(
+    protected static $paramsList = array(
         'metadata_manager',
         'metadata_parser',
         'cache',
@@ -36,7 +36,7 @@ class ConfigurationSetupPass implements CompilerPassInterface
         }
         $definition = $container->getDefinition('flying_struct.configuration');
         $config = $container->getParameter('flying_struct.configuration');
-        foreach ($this->paramsList as $name) {
+        foreach (self::$paramsList as $name) {
             if (!array_key_exists($name, $config)) {
                 continue;
             }
@@ -57,14 +57,14 @@ class ConfigurationSetupPass implements CompilerPassInterface
             array_walk($method, function (&$v) {
                 $v = ucfirst($v);
             });
-            $method = 'set' . join('', $method);
+            $method = 'set' . implode('', $method);
             $definition->addMethodCall($method, array($value));
         }
         // Configure namespaces maps if we have them
         $nsMap = $config['nsmap'];
         $count = 0;
         foreach ($nsMap as $map) {
-            $count += sizeof($map);
+            $count += count($map);
         }
         if ($count > 0) {
             $configurator = new Definition('Flying\Bundle\StructBundle\DependencyInjection\Configurator\NamespaceMapConfigurator');

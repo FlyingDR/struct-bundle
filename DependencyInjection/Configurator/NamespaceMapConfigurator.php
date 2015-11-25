@@ -33,7 +33,7 @@ class NamespaceMapConfigurator
     public function configure(Configuration $configuration)
     {
         foreach ($this->nsMap as $type => $map) {
-            if (!sizeof($map)) {
+            if (!count($map)) {
                 continue;
             }
             $method = 'get' . ucfirst($type) . 'NamespacesMap';

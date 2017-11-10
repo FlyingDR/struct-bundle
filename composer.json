@@ -17,7 +17,6 @@
             "Flying\\Bundle\\StructBundle\\": ""
         }
     },
-    "target-dir": "Flying/Bundle/StructBundle",
     "require-dev": {
         "symfony/http-kernel": "~2.3 || ~3.0",
         "symfony/dependency-injection": "~2.3 || ~3.0",

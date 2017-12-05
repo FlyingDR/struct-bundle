@@ -8,23 +8,23 @@ parameters:
 
 services:
     flying_struct.metadata_manager:
-        class: %flying_struct.metadata_manager.class%
+        class: '%flying_struct.metadata_manager.class%'
 
     flying_struct.metadata_parser:
-        class: %flying_struct.metadata_parser.class%
+        class: '%flying_struct.metadata_parser.class%'
 
     flying_struct.storage:
-        class: %flying_struct.storage.class%
+        class: '%flying_struct.storage.class%'
         tags:
-            - { name: kernel.event_subscriber }
+            - { name: 'kernel.event_subscriber' }
 
     flying_struct.storage_backend.array:
-        class: %flying_struct.storage_backend.array.class%
+        class: '%flying_struct.storage_backend.array.class%'
 
     flying_struct.storage_backend.session:
-        class: %flying_struct.storage_backend.session.class%
-        arguments: [@session, @session.attribute_bag]
+        class: '%flying_struct.storage_backend.session.class%'
+        arguments: ['@session', '@session.attribute_bag']
 
     flying_struct.configuration:
-        class: %flying_struct.configuration.class%
+        class: '%flying_struct.configuration.class%'
         lazy: true
